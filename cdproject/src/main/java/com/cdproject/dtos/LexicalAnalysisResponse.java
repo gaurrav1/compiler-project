@@ -12,4 +12,5 @@ public class LexicalAnalysisResponse {
     private final List<TokenDto> tokens = new ArrayList<>();
     private final Map<String, List<String>> symbolTable = new HashMap<>();
     private final List<SymbolEntryDto> symbolEntries = new ArrayList<>();
+    private final List<AnalysisError> errors = new ArrayList<>();
 }

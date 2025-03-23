@@ -6,6 +6,7 @@ import SymbolTable from './SymbolTable';
 import Loader from './Loader';
 import { analyzeCode } from '../services/api';
 import './styles/App.css';
+import { ErrorPanel } from './ErrorPanel';
 
 export function App() {
   const [results, setResults] = useState(null);
@@ -35,9 +36,14 @@ export function App() {
       
       {results && (
         <div className="results-container">
+          {results.errors.length > 0 && (
+            <div className="results-section error-section">
+              <ErrorPanel errors={results.errors} />
+            </div>
+          )}
           <div className="results-section">
             <h2>Tokens</h2>
-            <TokenList tokens={results.tokens} />
+            <TokenList tokens={results.tokens} errors={results.errors} />
           </div>
           
           <div className="results-section">

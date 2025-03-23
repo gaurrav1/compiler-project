@@ -54,3 +54,25 @@ table {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+  .error-row {
+    background-color: #ffe6e6;
+    border-left: 3px solid #ff4444;
+  }
+  
+  .error-marker {
+    color: #ff4444;
+    margin-left: 8px;
+    font-weight: bold;
+  }
+  
+  .error-panel {
+    background: #ffe6e6;
+    border: 1px solid #ff4444;
+    border-radius: 6px;
+    padding: 15px;
+  }
+  
+  .error-panel h3 {
+    color: #ff4444;
+    margin-top: 0;
+  }

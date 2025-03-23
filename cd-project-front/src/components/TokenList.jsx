@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TokenList = ({ tokens }) => (
+const TokenList = ({ tokens, errors }) => (
   <div className="token-list">
     <table>
       <thead>
@@ -11,13 +11,23 @@ const TokenList = ({ tokens }) => (
         </tr>
       </thead>
       <tbody>
-        {tokens.map((token, index) => (
-          <tr key={index}>
-            <td>{token.lineNumber}</td>
-            <td>{token.category}</td>
-            <td>{token.value}</td>
-          </tr>
-        ))}
+      {tokens.map((token, index) => {
+          const error = errors.find(e => 
+            e.lineNumber === token.lineNumber && 
+            e.message.includes(token.value)
+          );
+          
+          return (
+            <tr key={index} className={error ? 'error-row' : ''}>
+              <td>{token.lineNumber}</td>
+              <td>{token.category}</td>
+              <td>
+                {token.value}
+                {error && <span className="error-marker">!</span>}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   </div>
