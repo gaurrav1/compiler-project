@@ -1,0 +1,56 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .symbol-category {
+    margin-bottom: 20px;
+  }
+  
+  .symbol-category h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .symbol-category ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .symbol-category li {
+    padding: 8px;
+    background: #ecf0f1;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }
+  
+  .loader {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .spinner {
+    animation: spin 1s linear infinite;
+    font-size: 24px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
