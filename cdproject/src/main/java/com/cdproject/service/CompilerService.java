@@ -7,10 +7,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CompilerService {
@@ -115,6 +112,23 @@ public class CompilerService {
 
     private String formatSymbolicName(String symbolicName) {
         if (symbolicName == null) return "UNKNOWN";
-        return symbolicName.charAt(0) + symbolicName.substring(1).toLowerCase();
+
+        // List of Java keywords (in uppercase as they appear in the lexer's symbolic names)
+        Set<String> keywords = Set.of(
+                "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE", "CASE", "CATCH", "CHAR",
+                "CLASS", "CONST", "CONTINUE", "DEFAULT", "DO", "DOUBLE", "ELSE", "ENUM",
+                "EXTENDS", "FINAL", "FINALLY", "FLOAT", "FOR", "IF", "GOTO", "IMPLEMENTS",
+                "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG", "NATIVE", "NEW",
+                "PACKAGE", "PRIVATE", "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
+                "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED", "THIS", "THROW", "THROWS",
+                "TRANSIENT", "TRY", "VOID", "VOLATILE", "WHILE"
+        );
+
+        if (keywords.contains(symbolicName)) {
+            return "Keyword"; // Unified category for all keywords
+        } else {
+            // Format non-keyword tokens (e.g., "Identifier" -> "Identifier", "IntegerLiteral" -> "IntegerLiteral")
+            return symbolicName.charAt(0) + symbolicName.substring(1).toLowerCase();
+        }
     }
 }

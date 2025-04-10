@@ -3,20 +3,16 @@ package com.cdproject.service;
 import com.cdproject.grammer.Java8BaseVisitor;
 import com.cdproject.grammer.Java8Parser;
 import com.cdproject.model.AnalysisError;
+import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.*;
 
 public class SemanticAnalysisVisitor extends Java8BaseVisitor<Void> {
-    private final Map<String, String> symbolTable;
-    private final List<AnalysisError> errors;
     private final List<Map<String, String>> scopes = new ArrayList<>();
+    @Getter
+    private final List<AnalysisError> errors = new ArrayList<>();
 
     public SemanticAnalysisVisitor(Map<String, String> symbolTable) {
-        this.symbolTable = new HashMap<>(symbolTable);
-        this.errors = new ArrayList<>();
         scopes.add(new HashMap<>(symbolTable)); // Global scope
     }
 
@@ -31,11 +27,20 @@ public class SemanticAnalysisVisitor extends Java8BaseVisitor<Void> {
     @Override
     public Void visitVariableDeclaratorId(Java8Parser.VariableDeclaratorIdContext ctx) {
         String varName = ctx.Identifier().getText();
-        if (!currentScope().containsKey(varName)) {
-            errors.add(new AnalysisError(ctx.getStart().getLine(), 
-                "Semantic error: Variable '" + varName + "' not declared."));
+        if (!isVariableDeclared(varName)) {
+            errors.add(new AnalysisError(ctx.getStart().getLine(),
+                    "Semantic error: Variable '" + varName + "' not declared."));
         }
         return super.visitVariableDeclaratorId(ctx);
+    }
+
+    private boolean isVariableDeclared(String varName) {
+        for (int i = scopes.size() - 1; i >= 0; i--) {
+            if (scopes.get(i).containsKey(varName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void enterScope() {
@@ -43,14 +48,9 @@ public class SemanticAnalysisVisitor extends Java8BaseVisitor<Void> {
     }
 
     private void exitScope() {
-        if (scopes.size() > 1) scopes.remove(scopes.size() - 1);
+        if (scopes.size() > 1) {
+            scopes.removeLast();
+        }
     }
 
-    private Map<String, String> currentScope() {
-        return scopes.get(scopes.size() - 1);
-    }
-
-    public List<AnalysisError> getErrors() {
-        return errors;
-    }
 }

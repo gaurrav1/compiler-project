@@ -1,0 +1,41 @@
+// Code 1
+class Main {
+   int x= 10;
+   public static void main(String args[]) {
+       float y = 1.2f
+   }
+}
+
+// Code 2
+public class Haha {
+    int x = 5;
+    float y = 1.5;
+    public static void main(String args[]){
+        int val1 = 3;
+        int val4 = 5;
+        float val2 = 2.1f;
+        float val3 = 4.3f;
+        float result = val1 + val2 * val3 / (val4 + 1);
+    }
+}
+
+// Code 3
+class Main {
+  public static void main(String[] args) {
+
+    String str = "Radar", reverseStr = "";
+    
+    int strLength = str.length();
+
+    for (int i = (strLength - 1); i >=0; --i) {
+      reverseStr = reverseStr + str.charAt(i);
+    }
+
+    if (str.toLowerCase().equals(reverseStr.toLowerCase())) {
+      System.out.println(str + " is a Palindrome String.");
+    }
+    else {
+      System.out.println(str + " is not a Palindrome String.");
+    }
+  }
+}
