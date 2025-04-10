@@ -27,6 +27,14 @@ public class SymbolTableVisitor extends Java8BaseVisitor<Void> {
         Java8Parser.NormalClassDeclarationContext normalClass = ctx.normalClassDeclaration();
         if (normalClass != null) {
             String className = normalClass.Identifier().getText();
+
+            symbolTable.add(new SymbolEntry(
+                    className,
+                    "CLASS",
+                    getCurrentScopeName(), // Parent scope (Global or enclosing class)
+                    ctx.start.getLine()
+            ));
+
             scopeNames.push(className);
             scopes.push(new HashMap<>());
             visit(normalClass.classBody()); // Access classBody via normalClass
@@ -39,6 +47,16 @@ public class SymbolTableVisitor extends Java8BaseVisitor<Void> {
     @Override
     public Void visitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
         String methodName = ctx.methodHeader().methodDeclarator().Identifier().getText();
+        String parentClass = getCurrentScopeName(); // Current scope is class name
+
+        // Add METHOD to symbol table
+        symbolTable.add(new SymbolEntry(
+                methodName,
+                "METHOD",
+                parentClass,
+                ctx.start.getLine()
+        ));
+
         scopeNames.push(methodName);
         scopes.push(new HashMap<>());
 
