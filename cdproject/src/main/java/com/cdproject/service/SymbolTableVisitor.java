@@ -4,8 +4,6 @@ import com.cdproject.grammer.Java8BaseVisitor;
 import com.cdproject.grammer.Java8Parser;
 import com.cdproject.model.SymbolEntry;
 import lombok.Getter;
-import org.antlr.v4.runtime.tree.ParseTree;
-
 import java.util.*;
 
 public class SymbolTableVisitor extends Java8BaseVisitor<Void> {

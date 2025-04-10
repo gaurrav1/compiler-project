@@ -8,8 +8,6 @@ class Main {
 
 // Code 2
 public class Haha {
-    int x = 5;
-    float y = 1.5;
     public static void main(String args[]){
         int val1 = 3;
         int val4 = 5;

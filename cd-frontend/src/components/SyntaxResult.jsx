@@ -1,16 +1,19 @@
 import { ParseTree } from "./ParseTree";
 
-export function SyntaxResult({syntaxResult}) {
-  return (
-    <>
-        {syntaxResult && (
+export function SyntaxResult({ syntaxResult }) {
+    return (
+        <>
+            {syntaxResult && (
                 <div>
-                    <h2 className="text-xl font-semibold">🧱 Parse Tree</h2>
-                    <div className="ml-4 text-sm bg-gray-100 p-2 rounded mt-2">
-                        <ParseTree tree={syntaxResult.parseTree} />
+                    <h2 className="text-xl font-semibold"># Parse Tree</h2>
+
+                    <div className="max-h-[600px] overflow-auto bg-gray-100 p-2 rounded mt-2">
+                        <div className="min-w-[800px]">
+                            <ParseTree tree={syntaxResult.parseTree} />
+                        </div>
                     </div>
 
-                    <h2 className="text-xl font-semibold mt-6">📦 Symbol Table</h2>
+                    <h2 className="text-xl font-semibold mt-6"># Symbol Table</h2>
                     <table className="w-full table-auto border mt-2">
                         <thead>
                             <tr>
@@ -34,7 +37,7 @@ export function SyntaxResult({syntaxResult}) {
 
                     {syntaxResult.errors.length > 0 && (
                         <>
-                            <h2 className="text-xl font-semibold text-red-600 mt-6">❌ Errors</h2>
+                            <h2 className="text-xl font-semibold text-red-600 mt-6"># Errors</h2>
                             <ul className="text-red-500 list-disc ml-6">
                                 {syntaxResult.errors.map((e, i) => (
                                     <li key={i}>{e.message} (Line {e.lineNumber})</li>
@@ -45,12 +48,12 @@ export function SyntaxResult({syntaxResult}) {
 
                     {syntaxResult.threeAddressCode && (
                         <>
-                            <h2 className="text-xl font-semibold mt-6">🧮 Three Address Code</h2>
+                            <h2 className="text-xl font-semibold mt-6"># Three Address Code</h2>
                             <pre className="bg-gray-100 p-2 rounded mt-2">{syntaxResult.threeAddressCode.join("\n")}</pre>
                         </>
                     )}
                 </div>
             )}
-    </>
-  )
+        </>
+    )
 }
