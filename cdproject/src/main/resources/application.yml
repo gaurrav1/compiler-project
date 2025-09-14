@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: cdproject
+
+server:
+  port: ${BACKEND_PORT:8080}

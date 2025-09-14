@@ -1,0 +1,16 @@
+services:
+  backend:
+    image: compiler/backend:1.0.0
+    container_name: java-compiler-backend
+    ports:
+      - "8080:8080"
+    environment:
+      BACKEND_PORT: 8080
+    restart: unless-stopped
+
+  frontend:
+    image: cd-frontend:latest
+    container_name: java-compiler-frontend
+    ports:
+      - "5500:80"
+    restart: unless-stopped

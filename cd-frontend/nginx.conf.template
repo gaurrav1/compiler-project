@@ -1,0 +1,48 @@
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    tcp_nopush      on;
+    tcp_nodelay     on;
+    keepalive_timeout  65;
+    types_hash_max_size 4096;
+
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+
+    server {
+        listen       ${PORT};
+        server_name  _;
+
+        root   /usr/share/nginx/html;
+        index  index.html;
+
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+
+        # Serve static assets with long cache
+        location ~* \.(?:js|css|png|jpg|jpeg|gif|svg|ico)$ {
+            expires 30d;
+            access_log off;
+            try_files $uri =404;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }
+}
+

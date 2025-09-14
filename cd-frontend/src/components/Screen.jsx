@@ -4,6 +4,13 @@ import { SyntaxResult } from "./SyntaxResult";
 import { LexicalResult } from "./LexicalResult";
 import { ChevronDown, X } from "lucide-react";
 
+// Derive API base URL from runtime env first, then build-time env, then sensible fallback
+const RUNTIME_ENV = (typeof window !== 'undefined' && window.__ENV) ? window.__ENV : {};
+const API_BASE_URL =
+  RUNTIME_ENV.API_BASE_URL ||
+  import.meta.env.VITE_API_BASE_URL ||
+  `${window.location.protocol}//${window.location.hostname}:${RUNTIME_ENV.BACKEND_PORT || import.meta.env.VITE_BACKEND_PORT || 8080}`;
+
 export function Screen() {
     const [code, setCode] = useState('');
     const [lexicalResult, setLexicalResult] = useState(null);
@@ -11,14 +18,14 @@ export function Screen() {
     const [expanded, setExpanded] = useState(null);
 
     const handleLexical = async () => {
-        const res = await axios.post("http://localhost:8080/api/compiler/lexical", code, {
+        const res = await axios.post(`${API_BASE_URL}/api/compiler/lexical`, code, {
             headers: { "Content-Type": "text/plain" }
         });
         setLexicalResult(res.data);
     };
 
     const handleSyntax = async () => {
-        const res = await axios.post("http://localhost:8080/api/compiler/syntax", code, {
+        const res = await axios.post(`${API_BASE_URL}/api/compiler/syntax`, code, {
             headers: { "Content-Type": "text/plain" }
         });
         setSyntaxResult(res.data);
