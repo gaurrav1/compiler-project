@@ -62,3 +62,8 @@ To stop and remove containers:
     docker compose down
 ```
 ---
+
+> **Note:**  
+> If you are building Docker images on Windows, ensure that all shell scripts (such as `docker-entrypoint.sh`) use **Unix (LF) line endings**.  
+> Windows-style line endings (CRLF) can cause errors like `'/bin/sh^M: bad interpreter: No such file or directory'` when running in Linux containers.  
+> In VS Code, you can convert line endings by clicking on `CRLF` in the bottom-right corner and selecting `LF`.
