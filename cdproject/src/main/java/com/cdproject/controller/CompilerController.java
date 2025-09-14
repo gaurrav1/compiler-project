@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/compiler")
-@CrossOrigin(origins = "http://localhost:5500/")
+@CrossOrigin(origins = {"http://localhost:5500/"})
 public class CompilerController {
 
-    @Autowired
-    private CompilerService compilerService;
+    private final CompilerService compilerService;
+
+    public CompilerController(CompilerService compilerService) {
+        this.compilerService = compilerService;
+    }
 
     @PostMapping("/lexical")
     public ResponseEntity<LexicalAnalysisResponse> analyzeLexically(@RequestBody String sourceCode) {

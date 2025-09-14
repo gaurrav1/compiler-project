@@ -1,4 +1,4 @@
-# 🧠 Java Mini Compiler (with Spring Boot & React)
+# Java Mini Compiler (with Spring Boot & React)
 
 This is a **Mini Java Code Analyzer** built as a part of a Compiler Design course project. It performs **lexical** and **syntax analysis** using **ANTLR with Java 8 grammar**. The application uses a **Spring Boot backend** and a **React.js frontend** for a modern, scalable, and interactive user experience.
 
@@ -6,10 +6,10 @@ This is a **Mini Java Code Analyzer** built as a part of a Compiler Design cours
 
 ## ✨ Features
 
-- ✅ Lexical analysis with support for Java keywords, identifiers, literals (including floating-point).
-- ✅ Syntax analysis with parse tree construction and detailed syntax error handling.
-- ✅ Scoped symbol table with class, method, and variable information.
-- ✅ React-based frontend with visual representation of tokens, parse tree, and errors.
+- Lexical analysis with support for Java keywords, identifiers, literals (including floating-point).
+- Syntax analysis with parse tree construction and detailed syntax error handling.
+- Scoped symbol table with class, method, and variable information.
+- React-based frontend with visual representation of tokens, parse tree, and errors.
 
 ---
 
@@ -30,34 +30,35 @@ This is a **Mini Java Code Analyzer** built as a part of a Compiler Design cours
 ---
 
 
-## 🛠 How to Run the Project
+## 🐳 Running with Docker & Docker Compose
 
-### 1. Backend (Spring Boot - `/cdproject`)
+### 1. Build Docker Images
 
-#### Requirements:
-- Java 17+
-- Gradle
-
-#### Steps:
+#### Frontend:
 ```bash
-cd cdproject
-# Ensure your Java version matches the one in build.gradle
-./gradlew bootRun
+    cd cd-frontend
+    docker build -t compiler/frontend:1.0.0 ./
 ```
-The backend will start on: http://localhost:8080
 
-### 2.Frontend (React - `/cd-frontend`)
-
-#### Requirements:
-- Node
-- npm
-
-#### Steps:
+#### Backend:
 ```bash
-cd cd-frontend
-npm install
-npm run dev
-
+    cd cdproject
+    docker build -t compiler/backend:1.0.0 ./
 ```
-The frontend will start on: http://localhost:5500 
 
+### 2. Start Services with Docker Compose
+
+From the project root (where `docker-compose.yml` is located):
+```bash
+    docker compose up -d
+```
+* The backend will be available at: http://localhost:8085
+* The frontend will be available at: http://localhost:5500
+
+### 3. Stop Services
+
+To stop and remove containers:
+```bash
+    docker compose down
+```
+---

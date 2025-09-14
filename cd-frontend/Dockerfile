@@ -21,7 +21,6 @@ RUN chmod +x /docker-entrypoint.sh
 
 # Runtime envs
 ENV PORT=80
-ENV API_BASE_URL=http://localhost:8080
 
 EXPOSE 80
 

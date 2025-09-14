@@ -3,14 +3,18 @@ services:
     image: compiler/backend:1.0.0
     container_name: java-compiler-backend
     ports:
-      - "8080:8080"
+      - "8085:8080"
     environment:
       BACKEND_PORT: 8080
     restart: unless-stopped
 
   frontend:
-    image: cd-frontend:latest
+    image: compiler/frontend:1.0.0
     container_name: java-compiler-frontend
     ports:
       - "5500:80"
+    environment:
+      BACKEND_PORT: 8085
+      # Optionally set API_BASE_URL for specifying custom backend URL accessible from client browser
+      # example: API_BASE_URL: http://www.backenddd.com:8080
     restart: unless-stopped
